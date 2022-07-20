@@ -118,6 +118,10 @@ body{
         cursor: not-allowed;
         pointer-events: all !important;
     }
+    &:focus{
+        outline: .3em dashed nested-map-get($colors, "primary", "neon-green");
+        outline-offset: .5em;
+    }
 }
 @media screen and (min-width: 50em){
     .component{
@@ -152,7 +156,12 @@ body{
    position: relative;
    z-index: 3;
    transition: .25s ease-in-out;
+   &:focus{
+    outline: .2em dashed nested-map-get($colors, "primary", "neon-green");
+    outline-offset: .5em;
+    }
 }
+
 .attribution img{
     display: block;
     width: 100%;
