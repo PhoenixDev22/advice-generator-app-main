@@ -1,0 +1,178 @@
+$colors:(
+    "primary":(
+        "light-cyan": hsl(193, 38%, 86%),
+        "neon-green": hsl(150, 100%, 66%),
+    ),
+    "neutral":(
+        "grayish-blue": hsl(217, 19%, 38%),
+        "dark-grayish-blue":  hsl(217, 19%, 24%),
+        "dark-blue": hsl(218, 23%, 16%)
+    )
+);
+
+$fw-bold: 800;
+$fs-primary: 1.375rem;
+$ff-primary:  'Manrope', sans-serif;
+$fs-neutral: 0.688rem;
+$radius-primary: 1rem;
+
+@function nested-map-get($map, $keys...){
+    @each $key in $keys{
+        $map: map-get($map, $key);
+    };
+    @return $map;
+}
+
+@mixin flex($direction, $justify){
+    display: flex;
+    align-items: center;
+    justify-content: $justify;
+    flex-direction: $direction;
+}
+
+html{
+    font-size: 100%;
+}
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+}
+body{
+    background-color: nested-map-get($colors, "neutral", "dark-blue");
+    padding: 0 1rem;
+    min-height: 100vh;
+    font-family: $ff-primary;
+    @include flex($direction:column, $justify:center);
+    overflow: hidden;
+}
+.component{
+    @include flex($direction:column, $justify:center);
+    position: relative;
+    max-width: 21.25rem;
+    border-radius: $radius-primary;
+    padding: 2.25rem 1.5rem;
+    background-color: nested-map-get($colors, "neutral", "dark-grayish-blue");
+}
+.desktop-seperator{display: none;}
+.mobile-seperator{
+    display: block;
+}
+
+.title{
+    text-transform: uppercase;
+    font-size: $fs-neutral;
+    letter-spacing: 0.188em;
+    color: nested-map-get($colors, "primary", "neon-green");
+    margin-bottom: 1.875rem;
+}
+.quote{
+    text-align: center;
+    color: nested-map-get($colors, "primary", "light-cyan");
+    line-height: 1.4;
+    font-size: $fs-primary;
+    margin-bottom: 1.75rem;
+}
+.seperator{margin-bottom: 1.75rem;}
+.btn{
+    @include flex($direction:column, $justify:center);
+    background-color: nested-map-get($colors, "primary", "neon-green");
+    position: absolute;
+    z-index: 1;
+    bottom: -2.063rem;
+    left: 50%;
+    height: 4.063rem;
+    width: 4.063rem;
+    border-radius: 50%;
+    transform: translateX(-50%) rotate(0);
+    transition: .5s ease-in-out;
+    &:hover{
+        transform: translateX(-50%)  rotate(180deg);
+        box-shadow:0 5px 40px nested-map-get($colors, "primary", "neon-green") ;
+        background-color: lighten(nested-map-get($colors, "primary", "neon-green"), 1%);
+    }
+    &:disabled{
+        transform: translateX(-50%) rotate(0);
+        background-color: nested-map-get($colors, "primary", "light-cyan");
+        box-shadow: none;
+        cursor: not-allowed;
+        pointer-events: all !important;
+    }
+}
+@media screen and (min-width: 50em){
+    .component{
+        max-width: 33.75rem;
+        padding: 3.125rem 2.5rem;
+    }
+    .title{
+        font-size: 0.875rem;
+    }
+    .quote{
+        font-size: 1.75rem;
+    }
+    .desktop-seperator{
+        display: block;
+    }
+    .mobile-seperator{
+        display: none;
+    }
+}
+
+.attribution{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: white;    
+}
+.link{
+   border-radius: 50%;
+   width: 2.5rem;
+   height: 2.5rem;
+   display: block;
+   position: relative;
+   z-index: 3;
+   transition: .25s ease-in-out;
+}
+.attribution img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.link::before{
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    bottom: -2px;
+    right: -2px;
+    border-radius: 50%;
+    background: 0;
+    z-index: -1;
+    background: nested-map-get($colors, "primary", "neon-green");
+    transition: .25s ease-in-out;
+}
+.link:hover.link::before{
+    transform: scale(1.07);
+    filter: blur(1px);   
+}
