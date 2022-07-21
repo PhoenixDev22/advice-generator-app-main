@@ -155,7 +155,6 @@ body {
 
 @media screen and (min-width: 50em) {
   .component {
-    margin-top: 1rem;
     max-width: 33.75rem;
     padding: 3.125rem 2.5rem;
   }
